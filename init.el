@@ -190,3 +190,8 @@
 
 ")))
 )
+
+;; Load `~/.emacs.d/user.el`.
+(let* ((pack-file (concat (file-name-as-directory "~/.emacs.d") "user.el")))
+  (if (file-exists-p pack-file)
+      (load-file pack-file)))
