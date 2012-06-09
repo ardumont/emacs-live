@@ -128,7 +128,8 @@
                      "lang-pack"
                      "power-pack"
                      "git-pack"
-                     "bindings-pack"))
+                     "bindings-pack"
+                     "tony-pack"))
        (live-dir (file-name-as-directory "live"))
        (dev-dir  (file-name-as-directory "dev")))
   (setq live-packs (mapcar (lambda (p) (concat live-dir p)) pack-names) )
@@ -199,6 +200,3 @@
 
 ")))
 )
-
-(if (not live-disable-zone)
-    (add-hook 'term-setup-hook 'zone))
