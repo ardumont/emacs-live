@@ -26,3 +26,4 @@ tmp/*
 .smex-items
 swank/*
 /elpa/
+/repl-port

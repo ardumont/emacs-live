@@ -1,4 +1,4 @@
-;; My setup added brutally after the default one
+;; starter-kit snippets of code imported brutally after the default one (from emacs-live's init.el)
 
 (require 'package)
 (add-to-list 'package-archives
@@ -8,7 +8,7 @@
 (when (not package-archive-contents)
   (package-refresh-contents))
 
-(defvar my-packages '(starter-kit starter-kit-bindings starter-kit-lisp starter-kit-js starter-kit-ruby starter-kit-eshell clojure-mode midje-mode multi-term switch-window slime slime-repl ediff org flymake-shell graphviz-dot-mode auto-complete cljdoc fold-dwim)
+(defvar my-packages '(starter-kit starter-kit-bindings starter-kit-lisp starter-kit-js starter-kit-ruby starter-kit-eshell clojure-mode nrepl midje-mode multi-term switch-window slime slime-repl ediff org flymake-shell graphviz-dot-mode auto-complete cljdoc fold-dwim)
   "A list of packages to ensure are installed at launch.")
 
 (dolist (p my-packages)
@@ -29,7 +29,9 @@
 (require 'auto-complete-config)
 (ac-config-default)
 
-;; Some clojure/slime setup
+(set-language-environment "UTF-8")
+
+;; clojure-mode setup
 
 (require 'clojure-mode)
 (require 'midje-mode)
@@ -39,6 +41,8 @@
 (add-hook 'clojure-mode-hook 'midje-mode)
 (add-hook 'clojure-mode-hook (lambda () (paredit-mode +1)))
 
+;; slime repl setup
+
 ; add color into the repl via clojure-jack-in
 (add-hook 'slime-repl-mode-hook
          (defun clojure-mode-slime-font-lock ()
@@ -47,12 +51,50 @@
 
 (add-hook 'slime-repl-mode-hook (lambda () (paredit-mode +1)))
 
-(set-language-environment "UTF-8")
 (setq slime-net-coding-system 'utf-8-unix)
 
-;; Some org-mode setup
+;; nrepl setup
+(add-hook 'nrepl-mode-hook (lambda () (paredit-mode +1)))
 
-(add-to-list 'auto-mode-alist '("\.cljs$" . clojure-mode))
+;; some personal functions that extends the one loaded from user.el
+
+(defun exists-session-or-spawn-it (session-name session-command)
+  "Given a session-name, check the existence of such a session. If it doesn't exist, spawn the session via the command session-command"
+  (let ((proc (get-buffer-process session-name)))
+    (unless (and proc (eq (process-status proc) 'run))
+      (funcall session-command))))
+
+(defun switch-to-buffer-or-nothing (process-name buffer-name)
+  "Given a process name, switch to the corresponding buffer-name if the process is running or does nothing."
+  (unless (string= (buffer-name) buffer-name)
+    (let ((proc (get-buffer-process process-name)))
+      (if (and proc (eq (process-status proc) 'run))
+          (switch-to-buffer-other-window buffer-name)))))
+
+;; examples
+;; (switch-to-buffer-or-nothing "*swank*" "*slime-repl nil*")    ;; clojure-jack-in
+;; (switch-to-buffer-or-nothing "*terminal<1>*" "*terminal<1>*") ;; multi-term
+
+(defun multi-term-once ()
+  "Check the existence of a terminal with multi-term.
+If it doesn't exist, launch it. Then go to this buffer in another buffer."
+  (interactive)
+  (unless (exists-session-or-spawn-it "*terminal<1>*" 'multi-term)
+    (switch-to-buffer-or-nothing "*terminal<1>*" "*terminal<1>*")))
+
+(defun jack-in-once ()
+  "Check the existence of a repl session (nrepl or slime). If it doesn't exist, launch it."
+  (interactive)
+  (exists-session-or-spawn-it "*nrepl-server*" (lambda () (nrepl-jack-in nil))))
+
+;;   (exists-session-or-spawn-it "*swank*" 'clojure-jack-in)
+
+;; other bindings that uses personal functions
+
+(global-set-key (kbd "C-c C-z") 'multi-term-once)
+(add-hook 'clojure-mode-hook 'jack-in-once)
+
+;; Some org-mode setup
 
 (column-number-mode)
 
@@ -97,9 +139,8 @@
      ;; add 'entreprise' files patterns (cough!)
      (setq ffip-patterns
            (append ffip-patterns
-                   '("*.css" "*.csv" "*.htm" "*.java" "*.js" "*.json"
-                     "*.jsp" "*.php" "*.properties" "*.sql" "*.xml"
-                     "*.clj")))
+                   '("*.cs*""*.htm*" "*.java" "*.js*" "*.php"
+                     "*.properties" "*.sql" "*.xml" "*.clj*")))
      ;; increase the max number of files, otherwise some files will be
      ;; 'unfindable' on big projects
      (setq ffip-limit 8192)))
@@ -212,42 +253,6 @@ instead."
 
 (global-set-key (kbd "M-n") 'smart-symbol-go-forward)
 (global-set-key (kbd "M-p") 'smart-symbol-go-backward)
-
-;; some personal functions that extends the one loaded from init.el
-
-(defun exists-session-or-spawn-it (session-name session-command)
-  "Given a session-name, check the existence of such a session. If it doesn't exist, spawn the session via the command session-command"
-  (let ((proc (get-buffer-process session-name)))
-    (unless (and proc (eq (process-status proc) 'run))
-      (funcall session-command))))
-
-(defun switch-to-buffer-or-nothing (process-name buffer-name)
-  "Given a process name, switch to the corresponding buffer-name if the process is running or does nothing."
-  (unless (string= (buffer-name) buffer-name)
-    (let ((proc (get-buffer-process process-name)))
-      (if (and proc (eq (process-status proc) 'run))
-          (switch-to-buffer-other-window buffer-name)))))
-
-;; examples
-;; (switch-to-buffer-or-nothing "*swank*" "*slime-repl nil*")    ;; clojure-jack-in
-;; (switch-to-buffer-or-nothing "*terminal<1>*" "*terminal<1>*") ;; multi-term
-
-(defun multi-term-once ()
-  "Check the existence of a terminal with multi-term.
-If it doesn't exist, launch it. Then go to this buffer in another buffer."
-  (interactive)
-  (unless (exists-session-or-spawn-it "*terminal<1>*" 'multi-term)
-    (switch-to-buffer-or-nothing "*terminal<1>*" "*terminal<1>*")))
-
-(defun clojure-jack-in-once ()
-  "Check the existence of a swank session. If it doesn't exist, launch it."
-  (interactive)
-  (exists-session-or-spawn-it "*swank*" 'clojure-jack-in))
-
-;; other bindings
-
-(global-set-key (kbd "C-c C-z") 'multi-term-once)
-(add-hook 'clojure-mode-hook 'clojure-jack-in-once)
 
 ;; To dynamically extend emacs via macros
 
