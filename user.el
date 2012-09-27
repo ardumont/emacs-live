@@ -85,7 +85,7 @@ If it doesn't exist, launch it. Then go to this buffer in another buffer."
 (defun jack-in-once ()
   "Check the existence of a repl session (nrepl or slime). If it doesn't exist, launch it."
   (interactive)
-  (exists-session-or-spawn-it "*nrepl-server*" (lambda () (nrepl-jack-in nil))))
+  (exists-session-or-spawn-it "*swank*" 'clojure-jack-in))
 
 ;;   (exists-session-or-spawn-it "*swank*" 'clojure-jack-in)
 
