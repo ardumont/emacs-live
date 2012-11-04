@@ -56,6 +56,10 @@
 
 (add-hook 'clojure-mode-hook (lambda () (paredit-mode +1)))
 
+;; lisp setup
+
+(add-hook 'inferior-lisp-mode-hook (lambda () (paredit-mode +1)))
+
 ;; slime repl setup
 
 ; add color into the repl via clojure-jack-in
