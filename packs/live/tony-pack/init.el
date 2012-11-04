@@ -55,11 +55,14 @@
 
 (add-to-list 'auto-mode-alist '("\.cljs$" . clojure-mode))
 
-(add-hook 'clojure-mode-hook (lambda () (paredit-mode +1)))
+;; add paredit mode to different modes
 
-;; lisp setup
-
-(add-hook 'inferior-lisp-mode-hook (lambda () (paredit-mode +1)))
+(dolist (hook '(clojure-mode-hook
+                lisp-mode
+                inferior-lisp-mode-hook
+                slime-repl-mode-hook
+                nrepl-mode-hook))
+  (add-hook hook (lambda () (paredit-mode +1))))
 
 ;; slime repl setup
 
@@ -69,12 +72,7 @@
            (let (font-lock-mode)
              (clojure-mode-font-lock-setup))))
 
-(add-hook 'slime-repl-mode-hook (lambda () (paredit-mode +1)))
-
 (setq slime-net-coding-system 'utf-8-unix)
-
-;; nrepl setup
-(add-hook 'nrepl-mode-hook (lambda () (paredit-mode +1)))
 
 ;; some personal functions that extends the one loaded from user.el
 
