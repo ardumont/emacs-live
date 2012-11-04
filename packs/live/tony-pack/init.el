@@ -47,6 +47,7 @@
 (ac-config-default)
 
 (set-language-environment "UTF-8")
+(blink-cursor-mode 1)
 
 ;; clojure-mode setup
 
