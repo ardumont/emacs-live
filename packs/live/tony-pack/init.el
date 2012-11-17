@@ -17,7 +17,7 @@
 (when (not package-archive-contents)
   (package-refresh-contents))
 
-(defvar my-packages '(starter-kit starter-kit-lisp starter-kit-js starter-kit-ruby starter-kit-eshell clojure-mode clojure-test-mode multi-term switch-window slime slime-repl ediff org flymake-shell graphviz-dot-mode auto-complete cljdoc fold-dwim htmlize)
+(defvar my-packages '(multi-term switch-window slime slime-repl ediff org flymake-shell graphviz-dot-mode auto-complete cljdoc fold-dwim htmlize)
   "A list of packages to ensure are installed at launch.")
 
 (dolist (p my-packages)
@@ -49,16 +49,9 @@
 (set-language-environment "UTF-8")
 (blink-cursor-mode 1)
 
-;; clojure-mode setup
-
-(require 'clojure-mode)
-
-(add-to-list 'auto-mode-alist '("\.cljs$" . clojure-mode))
-
 ;; add paredit mode to different modes
 
-(dolist (hook '(clojure-mode-hook
-                lisp-mode
+(dolist (hook '(lisp-mode
                 inferior-lisp-mode-hook
                 slime-repl-mode-hook
                 nrepl-mode-hook))
