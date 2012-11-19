@@ -6,6 +6,8 @@
 ;; make C-w to cut (even in paredit-mode)
 (global-set-key (kbd "C-w") 'kill-region)
 (define-key paredit-mode-map (kbd "C-w") 'kill-region)
+(define-key paredit-mode-map (kbd "M-s") 'paredit-splice-sexp)
+(define-key paredit-mode-map (kbd "M-S") 'paredit-split-sexp)
 
 ;; yank
 (global-set-key (kbd "C-y") 'yank)
