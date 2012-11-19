@@ -31,10 +31,6 @@
 ;; (require ’slime-autoloads)
 ;; (slime-setup)
 
-;; some multi term tweaks
-(require 'multi-term)
-(global-set-key (kbd "C-c C-j") 'term-line-mode)
-
 ;; some text/font/color tweaks
 
 (setq-default fill-column 120)
@@ -102,7 +98,6 @@ If it doesn't exist, launch it. Then go to this buffer in another buffer."
 
 ;; other bindings that uses personal functions
 
-(global-set-key (kbd "C-c C-z") 'multi-term-once)
 (add-hook 'clojure-mode-hook 'jack-in-once)
 
 ;; Some org-mode setup
@@ -130,13 +125,6 @@ If it doesn't exist, launch it. Then go to this buffer in another buffer."
 
 (setq org-todo-keywords
    '((sequence "TODO" "IN-PROGRESS" "PENDING" "|"  "DONE" "FAIL" "DELEGATED" "CANCELLED")))
-
-;; To show/hide block of code
-
-(require 'fold-dwim)
-(global-set-key (kbd "C-c j") 'fold-dwim-toggle)
-(global-set-key (kbd "C-c l") 'fold-dwim-hide-all)
-(global-set-key (kbd "C-c ;") 'fold-dwim-show-all)
 
 ;; C-x C-l to lower case ; C-x C-u to upper case
 
@@ -180,9 +168,6 @@ If it doesn't exist, launch it. Then go to this buffer in another buffer."
      (expand-file-name
       (ido-completing-read
        "Project file: " (tags-table-files) nil t)))))
-
-(global-set-key [remap find-tag] 'ido-find-tag)
-(global-set-key (kbd "C-.") 'ido-find-file-in-tag-files)
 
 ;; to improve the movement in files
 
@@ -262,9 +247,6 @@ instead."
             word)
         (error "No symbol found")))))
 
-(global-set-key (kbd "M-n") 'smart-symbol-go-forward)
-(global-set-key (kbd "M-p") 'smart-symbol-go-backward)
-
 ;; To dynamically extend emacs via macros
 
 (defun save-macro (name)
@@ -286,8 +268,6 @@ instead."
         "A macro to dispose emacs buffer as i'm used to after the clojure-jack-in is started."
         (interactive "p")
         (kmacro-exec-ring-item (quote ([24 48 24 50 24 111 134217848 109 117 108 116 105 return 108 101 105 110 32 109 105 100 106 101 32 45 45 108 97 122 121 116 101 115 116 return 24 51 24 111 24 98 110 114 101 112 108 return 24 98 42 110 114 101 112 108 42 return 24 111] 0 "%d")) arg)))
-
-(global-set-key (kbd "C-c C-i") 'after-jack-in)
 
 ;; Load bindings config
 (live-load-config-file "bindings.el")

@@ -12,3 +12,24 @@
 
 (global-set-key (kbd "C-v") (lambda () (interactive) (next-line 10)))
 (global-set-key (kbd "M-v") (lambda () (interactive) (previous-line 10)))
+
+;; some multi term tweaks
+(require 'multi-term)
+(global-set-key (kbd "C-c C-j") 'term-line-mode)
+
+;; start or go to multi-term
+(global-set-key (kbd "C-c C-z") 'multi-term-once)
+
+;; To show/hide block of code
+(require 'fold-dwim)
+(global-set-key (kbd "C-c j") 'fold-dwim-toggle)
+(global-set-key (kbd "C-c l") 'fold-dwim-hide-all)
+(global-set-key (kbd "C-c ;") 'fold-dwim-show-all)
+
+(global-set-key [remap find-tag] 'ido-find-tag)
+(global-set-key (kbd "C-.") 'ido-find-file-in-tag-files)
+
+(global-set-key (kbd "M-n") 'smart-symbol-go-forward)
+(global-set-key (kbd "M-p") 'smart-symbol-go-backward)
+
+(global-set-key (kbd "C-c C-i") 'after-jack-in)
