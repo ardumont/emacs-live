@@ -36,4 +36,4 @@
 
 (global-set-key (kbd "C-c C-i") 'after-jack-in)
 
-(global-set-key (kbd "C-c C-i") 'revert-buffer)
+(global-set-key (kbd "M-/") 'complete-symbol)
