@@ -17,7 +17,7 @@
 (when (not package-archive-contents)
   (package-refresh-contents))
 
-(defvar my-packages '(multi-term switch-window slime slime-repl ediff org flymake-shell graphviz-dot-mode auto-complete cljdoc fold-dwim htmlize)
+(defvar my-packages '(switch-window slime slime-repl ediff org flymake-shell graphviz-dot-mode fold-dwim htmlize)
   "A list of packages to ensure are installed at launch.")
 
 (dolist (p my-packages)

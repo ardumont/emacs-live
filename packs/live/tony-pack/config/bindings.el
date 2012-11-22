@@ -16,7 +16,7 @@
 (global-set-key (kbd "M-v") (lambda () (interactive) (previous-line 10)))
 
 ;; some multi term tweaks
-(require 'multi-term)
+;;(require 'multi-term)
 (global-set-key (kbd "C-c C-j") 'term-line-mode)
 
 ;; start or go to multi-term
