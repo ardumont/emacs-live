@@ -36,12 +36,6 @@
 (setq-default fill-column 120)
 (set-face-background 'default "black")
 
-;; auto complete
-
-(add-to-list 'ac-dictionary-directories "~/.emacs.d/elpa/auto-complete-1.4/dict")
-(require 'auto-complete-config)
-(ac-config-default)
-
 (set-language-environment "UTF-8")
 (blink-cursor-mode 1)
 
