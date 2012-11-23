@@ -102,6 +102,11 @@ If it doesn't exist, launch it. Then go to this buffer in another buffer."
 
 ;; Some org-mode setup
 
+
+;; org-mode for the .org file
+
+(add-to-list 'auto-mode-alist '("\.org$" . org-mode))
+
 (column-number-mode)
 
 (setq org-directory "~/org")
