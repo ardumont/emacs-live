@@ -12,12 +12,14 @@
 (require 'package)
 (add-to-list 'package-archives
              '("marmalade" . "http://marmalade-repo.org/packages/") t)
+(add-to-list 'package-archives
+             '("melpa" . "http://melpa.milkbox.net/packages/") t)
 (package-initialize)
 
 (when (not package-archive-contents)
   (package-refresh-contents))
 
-(defvar my-packages '(switch-window slime slime-repl ediff org flymake-shell graphviz-dot-mode fold-dwim htmlize)
+(defvar my-packages '(switch-window slime slime-repl ediff org flymake-shell graphviz-dot-mode fold-dwim htmlize edit-server)
   "A list of packages to ensure are installed at launch.")
 
 (dolist (p my-packages)
