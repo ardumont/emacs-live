@@ -19,7 +19,7 @@
 (when (not package-archive-contents)
   (package-refresh-contents))
 
-(defvar my-packages '(switch-window slime slime-repl ediff org flymake-shell graphviz-dot-mode fold-dwim htmlize edit-server)
+(defvar my-packages '(switch-window slime slime-repl ediff org flymake-shell graphviz-dot-mode fold-dwim htmlize edit-server puppet-mode)
   "A list of packages to ensure are installed at launch.")
 
 (dolist (p my-packages)
@@ -40,6 +40,10 @@
 
 (set-language-environment "UTF-8")
 (blink-cursor-mode 1)
+
+;; puppet-mode for the .pp file
+
+(add-to-list 'auto-mode-alist '("\.pp$" . puppet-mode))
 
 ;; add paredit mode to different modes
 
