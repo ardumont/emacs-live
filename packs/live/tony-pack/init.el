@@ -267,3 +267,10 @@ instead."
 
 ;; Load bindings config
 (live-load-config-file "bindings.el")
+
+;; edit-server
+(if (and (daemonp) (locate-library "edit-server"))
+     (progn
+       (require 'edit-server)
+       (setq edit-server-new-frame nil)
+       (edit-server-start)))
