@@ -39,3 +39,10 @@
 (global-set-key (kbd "M-/") 'complete-symbol)
 
 (global-set-key (kbd "C-c r") 'revert-buffer)
+
+(define-key nrepl-interaction-mode-map (kbd "C-c C-e") '(lambda ()
+                                                          (interactive)
+                                                          (let ((curr (point)))
+                                                            (end-of-defun)
+                                                            (nrepl-eval-last-expression)
+                                                            (goto-char curr))))
