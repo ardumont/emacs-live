@@ -19,7 +19,7 @@
 (when (not package-archive-contents)
   (package-refresh-contents))
 
-(defvar my-packages '(switch-window slime slime-repl ediff org flymake-shell graphviz-dot-mode fold-dwim htmlize edit-server puppet-mode)
+(defvar my-packages '(switch-window slime slime-repl ediff org flymake-shell graphviz-dot-mode fold-dwim htmlize edit-server puppet-mode haskell-mode)
   "A list of packages to ensure are installed at launch.")
 
 (dolist (p my-packages)
@@ -273,6 +273,21 @@ instead."
         "A macro to dispose emacs buffer as i'm used to after the clojure-jack-in is started."
         (interactive "p")
         (kmacro-exec-ring-item (quote ([24 48 24 50 24 111 134217848 109 117 108 116 105 return 108 101 105 110 32 109 105 100 106 101 32 45 45 108 97 122 121 116 101 115 116 return 24 51 24 111 24 98 110 114 101 112 108 return 24 98 42 110 114 101 112 108 42 return 24 111] 0 "%d")) arg)))
+
+;;;;;;;;;;;;;;;;;;;;; haskell
+
+(add-hook 'haskell-mode-hook 'turn-on-haskell-doc-mode)
+
+;; hslint on the command line only likes this indentation mode;
+;; alternatives commented out below.
+(add-hook 'haskell-mode-hook 'turn-on-haskell-indentation)
+;;(add-hook 'haskell-mode-hook 'turn-on-haskell-indent)
+;;(add-hook 'haskell-mode-hook 'turn-on-haskell-simple-indent)
+
+;; Ignore compiled Haskell files in filename completions
+(add-to-list 'completion-ignored-extensions ".hi")
+
+;;;;;;;;;;;;;;;;;;;;; load the general bindings
 
 ;; Load bindings config
 (live-load-config-file "bindings.el")
