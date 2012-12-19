@@ -342,6 +342,34 @@ instead."
      (add-hook 'haskell-mode-hook 'flymake-haskell-enable)
      (add-hook 'haskell-mode-hook 'my-haskell-mode-hook)))
 
+;; java
+
+;;(load-file "~/.emacs.d/manual/cedet/common/cedet.el")
+;; (global-semanticdb-minor-mode 1)
+;; (semantic-load-enable-gaudy-code-helpers)
+
+(custom-set-variables
+ '(cedet-java-jdk-root "/usr/lib/jvm/java-7-openjdk-amd64")
+ '(semanticdb-javap-classpath
+   '("/usr/lib/jvm/java-7-openjdk-amd64/jre/lib/rt.jar")))
+
+(require 'flymake)
+
+(defun flymake-java-enable ()
+  "Enables flymake-mode for java, and sets <C-c d> as command
+  to show current error."
+  (interactive)
+  (local-set-key (kbd "C-c d") 'flymake-display-err-menu-for-current-line)
+  (flymake-mode t))
+
+(add-hook 'java-mode-hook 'flymake-java-enable)
+
+(defun my-java-flymake-init ()
+  (list "javac" (list (flymake-init-create-temp-buffer-copy
+                       'flymake-create-temp-with-folder-structure))))
+
+(add-to-list 'flymake-allowed-file-name-masks '("\\.java$" my-java-flymake-init flymake-simple-cleanup))
+
 ;; Load bindings config
 (live-load-config-file "bindings.el")
 
