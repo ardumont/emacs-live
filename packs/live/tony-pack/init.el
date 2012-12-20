@@ -370,6 +370,19 @@ instead."
 
 (add-to-list 'flymake-allowed-file-name-masks '("\\.java$" my-java-flymake-init flymake-simple-cleanup))
 
+;; again some java
+
+(add-to-list 'load-path "~/applications/malabar/lisp")
+;; Or enable more if you wish
+(setq semantic-default-submodes '(global-semantic-idle-scheduler-mode
+                                  global-semanticdb-minor-mode
+                                  global-semantic-idle-summary-mode
+                                  global-semantic-mru-bookmark-mode))
+(semantic-mode 1)
+(require 'malabar-mode)
+(setq malabar-groovy-lib-dir "~/applications/malabar/lib")
+(add-to-list 'auto-mode-alist '("\\.java\\'" . malabar-mode))
+
 ;; multiple-cursors
 (require 'multiple-cursors)
 
