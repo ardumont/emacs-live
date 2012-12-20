@@ -46,3 +46,7 @@
                                                             (end-of-defun)
                                                             (nrepl-eval-last-expression)
                                                             (goto-char curr))))
+
+(global-set-key (kbd "C-c n") 'mc/mark-next-like-this)
+(global-set-key (kbd "C-c p") 'mc/mark-previous-like-this)
+(global-set-key (kbd "C-c C-a") 'mc/mark-all-like-this)
