@@ -40,12 +40,8 @@
 
 (global-set-key (kbd "C-c r") 'revert-buffer)
 
-(define-key nrepl-interaction-mode-map (kbd "C-c C-e") '(lambda ()
-                                                          (interactive)
-                                                          (let ((curr (point)))
-                                                            (end-of-defun)
-                                                            (nrepl-eval-last-expression)
-                                                            (goto-char curr))))
+(define-key nrepl-interaction-mode-map (kbd "C-c C-e") 'nrepl-eval-expression-at-point)
+
 
 (global-set-key (kbd "C-c n") 'mc/mark-next-like-this)
 (global-set-key (kbd "C-c p") 'mc/mark-previous-like-this)
