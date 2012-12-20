@@ -19,7 +19,7 @@
 (when (not package-archive-contents)
   (package-refresh-contents))
 
-(defvar my-packages '(switch-window slime slime-repl ediff org flymake-shell graphviz-dot-mode fold-dwim htmlize edit-server puppet-mode haskell-mode flymake)
+(defvar my-packages '(switch-window slime slime-repl ediff org flymake-shell graphviz-dot-mode fold-dwim htmlize edit-server puppet-mode haskell-mode flymake multiple-cursors)
   "A list of packages to ensure are installed at launch.")
 
 (dolist (p my-packages)
