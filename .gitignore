@@ -24,3 +24,9 @@ tramp
 tmp/*
 .smex-items
 swank/*
+/.cask/
+/elnode/
+/elpa/
+/elpa-bak
+/el-get
+/projectile-bookmarks.eld
